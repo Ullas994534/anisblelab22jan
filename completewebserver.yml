@@ -1,0 +1,36 @@
+- name: apache start enable index file to copy and service restart
+  hosts: web
+  become: true
+  tasks: 
+#   - name: Install httpd
+# ansible.builtin.package:
+#   name: httpd
+#   state: present
+#  - name: start the httpd:
+#    ansible.bulitin.package:
+#       name: httpd
+#       state: restart
+#   - name: enable the httpd
+##  ansiable.bulitin.package:
+#     name: httpd
+##    state: enabled
+#   - name: copy the index file
+#    anaiable.builtin.copy:
+#     src:
+#       desc:
+
+    - name: httpd install
+      ansible.builtin.yum:
+        name: httpd
+        state: latest
+
+    - name: copy index firl from local
+      ansible.builtin.template:
+        src: /home/ansadmin/index.html
+        dest: /var/www/html
+    
+    - name: start httpd
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
+        enabled: yes   

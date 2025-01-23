@@ -1,0 +1,8 @@
+ - name: httpd stop
+   hosts: web
+   become: true
+   tasks:
+     - name: httpd stop
+       ansible.builtin.service:
+         name: httpd
+         state: stopped

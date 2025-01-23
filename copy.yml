@@ -1,0 +1,15 @@
+ - name: copy file
+   hosts: web
+   become: true
+   tasks: 
+     - name: copy file from local to nodes
+       ansible.builtin.template:
+#         name: copy file index.html
+         src: /home/ansadmin/index.html
+         dest: /home/ansadmin
+#         mode: '0644'
+#
+#
+#
+#
+#         

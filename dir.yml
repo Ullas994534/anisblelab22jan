@@ -1,0 +1,12 @@
+# - name: creaiite directory
+ - name: delete directory
+   hosts: web
+   become: true
+   tasks: 
+     - name: delete dir
+#     - name: create dir
+       ansible.builtin.file:
+         name: labans-1-22-25
+         path: /home/ansadmin
+#         state: directory
+         state: absent

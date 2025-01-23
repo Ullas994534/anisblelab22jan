@@ -1,0 +1,13 @@
+ - name: httpd install
+   hosts: web
+   become: true
+   tasks: 
+     - name: install httpd on linux
+       ansible.builtin.package:
+         name: httpd
+         state: latest
+     - name: start httpd service
+       ansible.builtin.service:
+         name: httpd
+         state: started
+         enabled: yes

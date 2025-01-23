@@ -1,0 +1,5 @@
+
+PLAY [user creation] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+fatal: [ip-172-31-89-136]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: Warning: Permanently added 'ip-172-31-89-136' (ED25519) to the list of known hosts.\r\nroot@ip-172-31-89-136: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).", "unreachable": true}

@@ -1,0 +1,43 @@
+# - name: Tomcatweb server deployment on both nodes
+#  hosts: web
+#   become: true
+#   tasks:
+#     - name: install the tomcat
+#       ansible.builtin.templateOB:
+#         name: copy he index.html
+#         src: /home/ansadmin/index.html
+#         dest: /home/ansadmin/ 
+
+
+- name: install Tomcat
+  hosts: web
+  become: true
+  tasks:
+ ansiable.builtin.yum:
+    - name: Install Java
+      yum:
+       name: java-1.8.0-openjdk
+       state: present
+       
+    - name: Download Tomcat
+     get_url:
+      url: "https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.54/bin/apache-tomcat-9.0.54.tar.gz"
+      dest: /opt/
+
+    - name: Extract Tomcat
+       unarchive:
+        src:/opt/apache-tomcat-9.0.54.tar.gz
+        dest:/opt/
+        remote_src: yes
+
+    - name: Configure Tomcat Users
+      template:
+      src: tomcat-users.xml.j2  
+      dest: /opt/apache-tomcat-9.0.54/conf/tomcat-users.xml
+
+    - name: Start Tomcat Service
+      service:
+        name: tomcat
+        state: started
+        enabled: yes
+

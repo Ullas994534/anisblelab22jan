@@ -1,0 +1,19 @@
+ - name: Web Server Deployment
+   hosts: web
+   become: true
+   tasks: 
+     - name: Install httpd package
+       ansible.builtin.yum: 
+         name: httpd
+         state: latest
+
+     - name: Copy Index file from local system to nodes to deploy website
+       ansible.builtin.template:
+         src: /home/ansadmin/index.html
+         dest: /var/www/html    
+
+     - name: Start httpd service
+       ansible.builtin.service:
+         name: httpd
+         state: restarted
+         enabled: yes    

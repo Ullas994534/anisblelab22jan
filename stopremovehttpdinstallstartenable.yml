@@ -1,0 +1,33 @@
+ - name: https stop - remove - install - start - enable - status
+   hosts: web
+   become: true
+   tasks:
+     - name: httpd stop
+       ansible.builtin.service:
+         name: httpd
+         state: stopped
+      
+     - name: https remove
+       ansible.builtin.yum:
+         name: httpd
+         state: absent
+     
+     - name: https install
+       ansible.builtin.yum:
+         name: httpd
+         state: latest
+
+     - name: httpd start
+       ansible.builtin.service:
+         name: httpd
+         state: started
+         enabled: yes
+
+     - name: httpd status
+       ansible.builtin.command: systemctl status "{{ item }}"
+       with_items: 
+         -  httpd
+     
+#     - name: check httpd logs
+#       ansible.builtin.comamnd: tail -f /var/log/httpd/access_log
+#         name: httpd

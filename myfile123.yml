@@ -1,0 +1,8 @@
+ - name: stop the httpd
+   hosts: web
+   become: true
+   tasks:
+     - name: stop the https
+       ansible.bulitin.service:
+         name: httpd
+         state: stopped

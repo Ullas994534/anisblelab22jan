@@ -1,0 +1,49 @@
+# - name: install httpd
+#   hosts: web
+#   become: true
+#   tasks:
+#     - name: install the httpd
+#       ansible.builtin.yum:
+#         name: httpd
+#         state: latest
+#   
+#     - name: stop the httpd
+#       ansible.builtin.service:
+#         name: httpd
+#         state: stopped
+#     
+#     - name: removing the httpd
+#       ansible.builtin.yum:
+#         name: httpd
+#         state: absent
+#
+#     - name: copy the index file
+#       ansible.builtin.copy:
+#         src: /home/ansadmin/index.html
+#         dest: /var/www/html
+#
+#     - name: restart the httpd
+#       ansible.builtin.service:
+#         name: httpd
+#         state: restarted
+### - Ullas bro please write the script of yml to deploy web server step by step Pls #######################
+
+ - name: install httpd
+   hosts: web
+   become: true
+   tasks:
+
+     - name: install the httpd
+       ansible.builtin.yum:
+         name: httpd
+         state: latest
+
+     - name: copy the index file
+       ansible.builtin.copy:
+         src: /home/ansadmin/index.html
+         dest: /var/www/html
+
+     - name: restart the httpd
+       ansible.builtin.service:
+         name: httpd
+         state: restarted

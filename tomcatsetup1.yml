@@ -1,0 +1,38 @@
+- name: Install Tomcat
+  hosts: web
+  become: true
+  tasks:
+    - name: Install Java
+      yum:
+        name: java-23-amazon-corretto 
+        state: latest
+
+    - name: Download tomcat
+      ansible.builtin.get_url:
+        url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.98/bin/apache-tomcat-9.0.98.tar.gz
+        dest: /opt
+
+    - name: Extract Tomcat
+      unarchive:
+        src: /opt/apache-tomcat-9.0.98.tar.gz
+        dest: /opt
+        remote_src: yes
+        
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: /home/ansadmin/index.jsp
+        dest: /opt/apache-tomcat-9.0.98/webapps/ROOT/
+#        owner: tomcat
+#        group: tomcat
+#        mode: '0644'
+#    - name: Configure Tomcat Users
+#      template:
+#        src: tomcat-users.xml.j2
+#        dest: /opt/apache-tomcat-9.0.54/conf/tomcat-users.xml
+
+    - name: Start Tomcat Service
+      ansible.builtin.shell: /opt/apache-tomcat-9.0.98/bin/startup.sh
+#      ansible.builtin.expect:
+#        command: /opt/apache-tomcat-9.0.98/bin/startup.sh
+#        state: started
+#        /opt/apache-tomcat-9.0.98/webapps/ROOT/index.jsp - tomcat index file path

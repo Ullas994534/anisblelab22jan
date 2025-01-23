@@ -1,0 +1,17 @@
+ - name: Install multiple packages
+   hosts: web
+   become: true
+   tasks:
+     - name: install multiple packages
+       ansible.builtin.yum:
+         name: "{{ item }}"
+         state: latest
+#        state: absent 
+       loop:
+         - httpd
+         - docker
+         - git
+         - vim
+         - tree
+
+
